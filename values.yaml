@@ -93,39 +93,39 @@ global:
       #   package: "./dynamic-plugins/dist/backstage-plugin-signals-backend-dynamic"
       ## --- ORCHESTRATOR PLUGIN ---
 
-      ## --- ADOPTION INSIGHTS PLUGIN ---
-      # - package: ./dynamic-plugins/dist/backstage-community-plugin-analytics-provider-segment
-      #   disabled: true
-      # - package: oci://ghcr.io/redhat-developer/rhdh-plugin-export-overlays/red-hat-developer-hub-backstage-plugin-adoption-insights:bs_1.35.1__0.0.3!red-hat-developer-hub-backstage-plugin-adoption-insights
-      #   disabled: false
-      #   pluginConfig:
-      #     dynamicPlugins:
-      #       frontend:
-      #         red-hat-developer-hub.backstage-plugin-adoption-insights:
-      #           appIcons:
-      #             - name: adoptionInsightsIcon
-      #               importName: AdoptionInsightsIcon
-      #           dynamicRoutes:
-      #             - path: /adoption-insights
-      #               importName: AdoptionInsightsPage
-      #               menuItem:
-      #                 icon: adoptionInsightsIcon
-      #                 text: Adoption Insights
-      #           menuItems:
-      #             adoption-insights:
-      #               parent: admin
-      #               icon: adoptionInsightsIcon
-      # - package: oci://ghcr.io/redhat-developer/rhdh-plugin-export-overlays/red-hat-developer-hub-backstage-plugin-adoption-insights-backend:bs_1.35.1__0.0.4!red-hat-developer-hub-backstage-plugin-adoption-insights-backend
-      #   disabled: false
-      # - package: oci://ghcr.io/redhat-developer/rhdh-plugin-export-overlays/red-hat-developer-hub-backstage-plugin-analytics-module-adoption-insights:bs_1.35.1__0.0.2!red-hat-developer-hub-backstage-plugin-analytics-module-adoption-insights
-      #   disabled: false
-      #   pluginConfig:
-      #     dynamicPlugins:
-      #       frontend:
-      #         red-hat-developer-hub.backstage-plugin-analytics-module-adoption-insights:
-      #           apiFactories:
-      #             - importName: AdoptionInsightsAnalyticsApiFactory
-      ## --- ADOPTION INSIGHTS PLUGIN ---
+      # --- ADOPTION INSIGHTS PLUGIN ---
+      - package: ./dynamic-plugins/dist/backstage-community-plugin-analytics-provider-segment
+        disabled: true
+      - package: oci://ghcr.io/redhat-developer/rhdh-plugin-export-overlays/red-hat-developer-hub-backstage-plugin-adoption-insights:bs_1.35.1__0.0.3!red-hat-developer-hub-backstage-plugin-adoption-insights
+        disabled: false
+        pluginConfig:
+          dynamicPlugins:
+            frontend:
+              red-hat-developer-hub.backstage-plugin-adoption-insights:
+                appIcons:
+                  - name: adoptionInsightsIcon
+                    importName: AdoptionInsightsIcon
+                dynamicRoutes:
+                  - path: /adoption-insights
+                    importName: AdoptionInsightsPage
+                    menuItem:
+                      icon: adoptionInsightsIcon
+                      text: Adoption Insights
+                menuItems:
+                  adoption-insights:
+                    parent: admin
+                    icon: adoptionInsightsIcon
+      - package: oci://ghcr.io/redhat-developer/rhdh-plugin-export-overlays/red-hat-developer-hub-backstage-plugin-adoption-insights-backend:bs_1.35.1__0.0.4!red-hat-developer-hub-backstage-plugin-adoption-insights-backend
+        disabled: false
+      - package: oci://ghcr.io/redhat-developer/rhdh-plugin-export-overlays/red-hat-developer-hub-backstage-plugin-analytics-module-adoption-insights:bs_1.35.1__0.0.2!red-hat-developer-hub-backstage-plugin-analytics-module-adoption-insights
+        disabled: false
+        pluginConfig:
+          dynamicPlugins:
+            frontend:
+              red-hat-developer-hub.backstage-plugin-analytics-module-adoption-insights:
+                apiFactories:
+                  - importName: AdoptionInsightsAnalyticsApiFactory
+      # --- ADOPTION INSIGHTS PLUGIN ---
 
 upstream:
   postgresql:
@@ -143,10 +143,10 @@ upstream:
       - oauth-client
       - backstage-orchestrator-token
     appConfig:
-      ## --- APP TITLE ---
-      # app:
-      #   title: PE Developer Hub
-      ## --- APP TITLE ---
+      # --- APP TITLE ---
+      app:
+        title: Internal Developer Platform Lab
+      # --- APP TITLE ---
       
       ## --- ADOPTION INSIGHTS ---
       #   analytics:
@@ -155,28 +155,28 @@ upstream:
       ## --- ADOPTION INSIGHTS ---
 
       ## --- AUTHENTICATION ---
-      ## This is a development and testing authentication configuration
-      auth:
-        providers:
-          guest:
-            dangerouslyAllowOutsideDevelopment: true
-      ## Configuration required to enable OpenID Connect authentication
+      # ## This is a development and testing authentication configuration
       # auth:
-      #   session:
-      #     secret: ${BACKEND_SECRET}
-      #   environment: production
       #   providers:
-      #     oidc:
-      #       production:
-      #         prompt: auto
-      #         metadataUrl: https://{{ keycloak_host }}/realms/{{ keycloak_realm }}/.well-known/openid-configuration
-      #         clientId: ${OAUTH_CLIENT_ID}
-      #         clientSecret: ${OAUTH_CLIENT_SECRET}
-      #         signIn:
-      #           resolvers:
-      #             - resolver: preferredUsernameMatchingUserEntityName
-      # signInPage: oidc
-      ## --- AUTHENTICATION --- #
+      #     guest:
+      #       dangerouslyAllowOutsideDevelopment: true
+      # Configuration required to enable OpenID Connect authentication
+      auth:
+        session:
+          secret: ${BACKEND_SECRET}
+        environment: production
+        providers:
+          oidc:
+            production:
+              prompt: auto
+              metadataUrl: https://{{ keycloak_host }}/realms/{{ keycloak_realm }}/.well-known/openid-configuration
+              clientId: ${OAUTH_CLIENT_ID}
+              clientSecret: ${OAUTH_CLIENT_SECRET}
+              signIn:
+                resolvers:
+                  - resolver: preferredUsernameMatchingUserEntityName
+      signInPage: oidc
+      # --- AUTHENTICATION --- #
 
       backend:
         ## --- ORCHESTRATOR ---
@@ -217,51 +217,51 @@ upstream:
         providers:
 
           ## --- GITLAB_CATALOG_PROVIDER ---
-          # gitlab:
-          #   default:
-          #     host: gitlab-gitlab.{{ cluster_subdomain }}
-          #     branch: main
-          #     fallbackBranch: master
-          #     skipForkedRepos: true
-          #     entityFilename: catalog-info.yaml
-          #     projectPattern: \w*techdocs\w*
-          #     schedule:
-          #       frequency: { minutes: 2 }
-          #       timeout: { minutes: 3 }
-          #       initialDelay: { seconds: 15 }
+          gitlab:
+            default:
+              host: gitlab-gitlab.{{ cluster_subdomain }}
+              branch: main
+              fallbackBranch: master
+              skipForkedRepos: true
+              entityFilename: catalog-info.yaml
+              projectPattern: \w*techdocs\w*
+              schedule:
+                frequency: { minutes: 2 }
+                timeout: { minutes: 3 }
+                initialDelay: { seconds: 15 }
           ## --- GITLAB_CATALOG_PROVIDER ---
 
           ## --- AUTO_DISCOVERY_IMPORT_COMPONENTS ---
-          #   all-location-entity:
-          #     host: gitlab-gitlab.{{ cluster_subdomain }}
-          #     filters:
-          #       branch: main
-          #     skipForkedRepos: true
-          #     entityFilename: all-location.yaml
-          #     catalogPath: /**/all-location.yaml
-          #     projectPattern: \b(all-location\w*)
-          #     excludeRepos: []
-          #     schedule:
-          #       frequency:
-          #         seconds: 15
-          #       initialDelay:
-          #         seconds: 15
-          #       timeout:
-          #         minutes: 3
+            all-location-entity:
+              host: gitlab-gitlab.{{ cluster_subdomain }}
+              filters:
+                branch: main
+              skipForkedRepos: true
+              entityFilename: all-location.yaml
+              catalogPath: /**/all-location.yaml
+              projectPattern: \b(all-location\w*)
+              excludeRepos: []
+              schedule:
+                frequency:
+                  seconds: 15
+                initialDelay:
+                  seconds: 15
+                timeout:
+                  minutes: 3
           ## --- AUTO_DISCOVERY_IMPORT_COMPONENTS ---
 
           ## --- KEYCLOAK_CATALOG_PROVIDERS ---
-          # keycloakOrg:
-          #   default:
-          #     baseUrl: https://{{ keycloak_host }}
-          #     realm: {{ keycloak_realm }}
-          #     loginRealm: {{ keycloak_login_realm }}
-          #     clientId: {{ keycloak_client_id }}
-          #     clientSecret: {{ keycloak_client_secret }}
-          #     schedule:
-          #       frequency: { minutes: 2 }
-          #       timeout: { minutes: 1 }
-          #       initialDelay: { seconds: 15 }
+          keycloakOrg:
+            default:
+              baseUrl: https://{{ keycloak_host }}
+              realm: {{ keycloak_realm }}
+              loginRealm: {{ keycloak_login_realm }}
+              clientId: {{ keycloak_client_id }}
+              clientSecret: {{ keycloak_client_secret }}
+              schedule:
+                frequency: { minutes: 2 }
+                timeout: { minutes: 1 }
+                initialDelay: { seconds: 15 }
           ## --- KEYCLOAK_CATALOG_PROVIDERS ---
 
       ## --- TECHDOCS_CONFIG ---
