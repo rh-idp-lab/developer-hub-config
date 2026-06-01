@@ -255,7 +255,7 @@ upstream:
             default:
               baseUrl: https://{{ keycloak_host }}
               realm: {{ keycloak_realm }}
-              loginRealm: {{ keycloak_login_realm }}
+              loginRealm: {{ keycloak_realm }}
               clientId: {{ keycloak_client_id }}
               clientSecret: {{ keycloak_client_secret }}
               schedule:
