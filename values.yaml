@@ -213,7 +213,11 @@ upstream:
       catalog:
         rules:
           - allow: [Component, System, API, Resource, Location, Template, Domain]
-        locations: []
+        locations:
+          - type: url
+            target: https://{{ gitlab_host }}/rhdh/opencodequest-templates/-/blob/main/entities.yaml
+            rules:
+              - allow: [Domain, System]
         providers:
 
           ## --- GITLAB_CATALOG_PROVIDER ---
