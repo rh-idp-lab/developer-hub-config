@@ -179,6 +179,15 @@ upstream:
       # --- AUTHENTICATION --- #
 
       backend:
+        auth:
+          externalAccess:
+            - type: static
+              options:
+                token: mYsecretToK3n
+                subject: catalog-access
+                accessRestrictions:
+                  - plugin: catalog 
+
         ## --- ORCHESTRATOR ---
         # auth:
         #   externalAccess:
